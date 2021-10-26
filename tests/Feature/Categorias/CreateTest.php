@@ -18,11 +18,10 @@ class CreateTest extends TestCase
     public function test_pode_criar_categoria(): void
     {
         $categoria = Categoria::factory()->make()->toArray();
-        $usuario   = User::factory()->create();
 
+        $usuario   = User::factory()->create();
         $permissao = Permission::create(['name' => CategoriaPermissoes::STORE, 'guard_name' => self::GUARD]);
         $usuario->givePermissionTo($permissao);
-
         $token = JWTAuth::fromUser($usuario);
 
         $response = $this->withToken($token)->postJson(route(self::ROTA), $categoria);
@@ -52,8 +51,8 @@ class CreateTest extends TestCase
     public function test_nao_pode_criar_categoria_sem_permissao(): void
     {
         $categoria = Categoria::factory()->make()->toArray();
-        $usuario   = User::factory()->create();
 
+        $usuario   = User::factory()->create();
         $token = JWTAuth::fromUser($usuario);
 
         $response = $this->withToken($token)->postJson(route(self::ROTA), $categoria);

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Domain\Permissoes\CategoriaPermissoes;
 use App\Http\Resources\Categorias\CategoriaResource;
 use App\Http\Requests\Categorias\CategoriaStoreRequest;
+use App\Http\Requests\Categorias\CategoriaUpdateRequest;
 
 class CategoriaController extends Controller
 {
@@ -26,22 +27,30 @@ class CategoriaController extends Controller
         abort_unless(authenticatedUserHasPermission(CategoriaPermissoes::STORE), 403);
 
         $categoria = Categoria::create($request->validated());
-        
+
         return (new CategoriaResource($categoria))->response()->setStatusCode(201);
     }
 
     public function show(Categoria $categoria)
     {
-        //
+        return (new CategoriaResource($categoria))->response()->setStatusCode(200);
     }
 
-    public function update(Request $request, Categoria $categoria)
+    public function update(CategoriaUpdateRequest $request, Categoria $categoria)
     {
-        //
+        abort_unless(authenticatedUserHasPermission(CategoriaPermissoes::UPDATE), 403);
+
+        $categoria->update($request->validated());
+
+        return (new CategoriaResource($categoria))->response()->setStatusCode(200);
     }
 
     public function destroy(Categoria $categoria)
     {
-        //
+        abort_unless(authenticatedUserHasPermission(CategoriaPermissoes::DESTROY), 403);
+
+        $categoria->delete();
+
+        return response()->json()->setStatusCode(200);
     }
 }

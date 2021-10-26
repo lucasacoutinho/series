@@ -13,7 +13,7 @@ class IndexTest extends TestCase
     {
         Categoria::factory(20)->create();
 
-        $response = $this->get(route(self::ROTA));
+        $response = $this->getJson(route(self::ROTA));
 
         $response->assertJsonStructure([
             'data' => [
@@ -30,7 +30,7 @@ class IndexTest extends TestCase
 
     public function test_sem_categorias_registradas()
     {
-        $response = $this->get(route(self::ROTA));
+        $response = $this->getJson(route(self::ROTA));
 
         $response->assertJsonStructure([
             'data' => []

@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoriaStoreRequest extends FormRequest
+class CategoriaUpdateRequest extends FormRequest
 {
     public function authorize()
     {
@@ -24,9 +24,9 @@ class CategoriaStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'titulo' => ['required', 'string', 'min:5'],
-            'slug'   => ['required', 'string', Rule::unique('categorias', 'slug')],
-            'status' => ['required', 'string', Rule::in([Categoria::STATUS_AVAILABLE, Categoria::STATUS_HIDDEN, Categoria::STATUS_DISABLED])]
+            'titulo' => ['filled', 'string', 'min:5'],
+            'slug'   => ['filled', 'string', Rule::unique('categorias', 'slug')->ignore($this->categoria)],
+            'status' => ['filled', 'string', Rule::in([Categoria::STATUS_AVAILABLE, Categoria::STATUS_HIDDEN, Categoria::STATUS_DISABLED])]
         ];
     }
 }
