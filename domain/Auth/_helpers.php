@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 if (!function_exists('getAuthenticatedUser')) {
     function getAuthenticatedUser(): User
     {
-        return Auth::guard('web')->user();
+        return Auth::guard('api')->user();
     }
 }
 
