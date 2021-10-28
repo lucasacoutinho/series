@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Categorias;
+namespace App\Http\Requests\Categoria;
 
 use App\Models\Categoria;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Illuminate\Foundation\Http\FormRequest;
 
-class CategoriaStoreRequest extends FormRequest
+class CategoriaStoreRequest extends CategoriaDoc
 {
     public function authorize()
     {
