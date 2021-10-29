@@ -37,6 +37,22 @@ class CreateTest extends TestCase
         ])->assertStatus(201);
     }
 
+    public function test_nao_pode_criar_categoria_com_titulo_igual(): void
+    {
+        $categoria = Categoria::factory()->create()->toArray();
+
+        $usuario   = User::factory()->create();
+        $permissao = Permission::create(['name' => CategoriaPermissoes::STORE, 'guard_name' => self::GUARD]);
+        $usuario->givePermissionTo($permissao);
+        $token = JWTAuth::fromUser($usuario);
+
+        $response = $this->withToken($token)->postJson(route(self::ROTA), $categoria);
+
+        $response->assertJsonStructure([
+            'message'
+        ])->assertStatus(422);
+    }
+
     public function test_nao_pode_criar_categoria_sem_autenticar(): void
     {
         $categoria = Categoria::factory()->make()->toArray();

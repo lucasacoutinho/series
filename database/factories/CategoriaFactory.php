@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Categoria;
 use Illuminate\Support\Str;
+use Domain\Status\Disponibilidade;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CategoriaFactory extends Factory
@@ -17,7 +18,7 @@ class CategoriaFactory extends Factory
         return [
             'titulo' => $titulo,
             'slug'   => Str::slug($titulo),
-            'status' => $this->faker->randomElement([Categoria::STATUS_AVAILABLE, Categoria::STATUS_HIDDEN, Categoria::STATUS_DISABLED]),
+            'status' => $this->faker->randomElement([Disponibilidade::STATUS_AVAILABLE, Disponibilidade::STATUS_HIDDEN, Disponibilidade::STATUS_DISABLED]),
         ];
     }
 }

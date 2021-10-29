@@ -38,6 +38,24 @@ class UpdateTest extends TestCase
         ])->assertStatus(200);
     }
 
+    public function test_pode_atualizar_categoria_titulo_duplicado()
+    {
+        $categoria = Categoria::factory()->create();
+
+        $usuario   = User::factory()->create();
+        $permissao = Permission::create(['name' => CategoriaPermissoes::UPDATE, 'guard_name' => self::GUARD]);
+        $usuario->givePermissionTo($permissao);
+        $token = JWTAuth::fromUser($usuario);
+
+        $dados = Categoria::factory()->create()->toArray();
+
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['categoria' => $categoria->id]), $dados);
+
+        $response->assertJsonStructure([
+            'message'
+        ])->assertStatus(422);
+    }
+
     public function test_nao_pode_atualizar_categorias_sem_autenticar()
     {
         $categoria = Categoria::factory()->create();

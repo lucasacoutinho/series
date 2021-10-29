@@ -5,15 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Categoria extends Model
 {
     use SoftDeletes;
     use HasFactory;
-
-    public const STATUS_AVAILABLE = 'disponivel';
-    public const STATUS_HIDDEN    = 'oculta';
-    public const STATUS_DISABLED  = 'desabilitada';
 
     protected $table = 'categorias';
 
@@ -22,4 +19,9 @@ class Categoria extends Model
         'slug',
         'status',
     ];
+
+    public function series(): BelongsToMany
+    {
+        return $this->belongsToMany(Serie::class, 'categorias_serie', 'categoria_id', 'serie_id');
+    }
 }

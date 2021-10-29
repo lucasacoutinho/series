@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Categoria;
 
-use App\Models\Categoria;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Domain\Status\Disponibilidade;
 
 class CategoriaUpdateRequest extends CategoriaDoc
 {
@@ -23,9 +23,9 @@ class CategoriaUpdateRequest extends CategoriaDoc
     public function rules()
     {
         return [
-            'titulo' => ['filled', 'string', 'min:5'],
-            'slug'   => ['filled', 'string', Rule::unique('categorias', 'slug')->ignore($this->categoria)],
-            'status' => ['filled', 'string', Rule::in([Categoria::STATUS_AVAILABLE, Categoria::STATUS_HIDDEN, Categoria::STATUS_DISABLED])]
+            'titulo' => ['filled', 'string', 'min:5', Rule::unique('categorias', 'titulo')->ignore($this->categoria)],
+            'slug'   => ['nullable', 'string', Rule::unique('categorias', 'slug')->ignore($this->categoria)],
+            'status' => ['filled', 'string', Rule::in([Disponibilidade::STATUS_AVAILABLE, Disponibilidade::STATUS_HIDDEN, Disponibilidade::STATUS_DISABLED])]
         ];
     }
 }
