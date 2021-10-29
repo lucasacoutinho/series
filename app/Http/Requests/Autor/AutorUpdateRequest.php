@@ -4,9 +4,8 @@ namespace App\Http\Requests\Autor;
 
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Illuminate\Foundation\Http\FormRequest;
 
-class AutorUpdateRequest extends FormRequest
+class AutorUpdateRequest extends AutorDoc
 {
     public function authorize()
     {
