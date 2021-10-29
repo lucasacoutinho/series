@@ -25,7 +25,13 @@ class CategoriaStoreRequest extends CategoriaDoc
         return [
             'titulo' => ['required', 'string', 'min:5', Rule::unique('categorias', 'titulo')],
             'slug'   => ['required', 'string', Rule::unique('categorias', 'slug')],
-            'status' => ['required', 'string', Rule::in([Disponibilidade::STATUS_AVAILABLE, Disponibilidade::STATUS_HIDDEN, Disponibilidade::STATUS_DISABLED])]
+            'status' => [
+                'required', 'string', Rule::in([
+                    Disponibilidade::STATUS_AVAILABLE,
+                    Disponibilidade::STATUS_HIDDEN,
+                    Disponibilidade::STATUS_DISABLED
+                ])
+            ],
         ];
     }
 }

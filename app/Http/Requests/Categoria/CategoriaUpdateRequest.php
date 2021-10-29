@@ -25,7 +25,13 @@ class CategoriaUpdateRequest extends CategoriaDoc
         return [
             'titulo' => ['filled', 'string', 'min:5', Rule::unique('categorias', 'titulo')->ignore($this->categoria)],
             'slug'   => ['nullable', 'string', Rule::unique('categorias', 'slug')->ignore($this->categoria)],
-            'status' => ['filled', 'string', Rule::in([Disponibilidade::STATUS_AVAILABLE, Disponibilidade::STATUS_HIDDEN, Disponibilidade::STATUS_DISABLED])]
+            'status' => [
+                'filled', 'string', Rule::in([
+                    Disponibilidade::STATUS_AVAILABLE,
+                    Disponibilidade::STATUS_HIDDEN,
+                    Disponibilidade::STATUS_DISABLED
+                ])
+            ],
         ];
     }
 }
