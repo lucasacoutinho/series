@@ -16,11 +16,28 @@ class EstudioController extends Controller
         $this->middleware(['auth:api'])->except(['index', 'show']);
     }
 
+    /**
+     * Listar estudios
+     *
+     * Retonar todos os registros do banco
+     * @group Estudio
+     * @responseFile response/estudio/Listar.json
+     */
     public function index()
     {
         return EstudioResource::collection(Estudio::all());
     }
 
+    /**
+     * Criar estudio
+     *
+     * Cria uma novo estudio
+     * @group Estudio
+     * @responseFile 201 response/estudio/Detalhar.json
+     * @responseFile 401 response/estudio/ValidarAutenticacao.json
+     * @responseFile 403 response/estudio/ValidarPermissao.json
+     * @responseFile 422 response/estudio/ValidarCriar.json
+     */
     public function store(EstudioStoreRequest $request)
     {
         abort_unless(authenticatedUserHasPermission(EstudioPermissoes::STORE), 403);
@@ -30,11 +47,31 @@ class EstudioController extends Controller
         return (new EstudioResource($estudio))->response()->setStatusCode(201);
     }
 
+    /**
+     * Detalhar estudio
+     *
+     * Retorna os dados do estudio
+     * @group Estudio
+     * @responseFile response/estudio/Detalhar.json
+     * @response 404 {"message": "No query results for model [App\\Models\\Estudio] 3"}
+     */
     public function show(Estudio $estudio)
     {
         return (new EstudioResource($estudio))->response()->setStatusCode(200);
     }
 
+    /**
+     * Atualizar estudio
+     *
+     * Atualiza os dados do estudio
+     * @group Estudio
+     * @urlParam estudio integer required O id do estudio
+     * @responseFile response/estudio/Detalhar.json
+     * @responseFile 401 response/estudio/ValidarAutenticacao.json
+     * @responseFile 403 response/estudio/ValidarPermissao.json
+     * @response 404 {"message": "No query results for model [App\\Models\\Estudio] 3"}
+     * @responseFile 422 response/estudio/ValidarAtualizar.json
+     */
     public function update(EstudioUpdateRequest $request, Estudio $estudio)
     {
         abort_unless(authenticatedUserHasPermission(EstudioPermissoes::UPDATE), 403);
@@ -44,6 +81,16 @@ class EstudioController extends Controller
         return (new EstudioResource($estudio))->response()->setStatusCode(200);
     }
 
+    /**
+     * Excluir estudio
+     *
+     * Exclui um estudio
+     * @group Estudio
+     * @urlParam estudio integer required O id da estudio
+     * @responseFile 401 response/estudio/ValidarAutenticacao.json
+     * @responseFile 403 response/estudio/ValidarPermissao.json
+     * @response 404 {"message": "No query results for model [App\\Models\\Estudio] 3"}
+     */
     public function destroy(Estudio $estudio)
     {
         abort_unless(authenticatedUserHasPermission(EstudioPermissoes::DESTROY), 403);

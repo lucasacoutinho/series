@@ -64,7 +64,7 @@ class CreateTest extends TestCase
         ])->assertStatus(401);
     }
 
-    public function test_nao_pode_criar_categoria_sem_permissao(): void
+    public function test_nao_pode_criar_estudio_sem_permissao(): void
     {
         $estudio = Estudio::factory()->make()->toArray();
 
