@@ -11,7 +11,7 @@ abstract class CategoriaDoc extends FormRequest
         return [
             'titulo' => [
                 'description' => 'Titulo da categoria',
-                'example' => 'hentai',
+                'example' => 'romance',
             ],
             'status' => [
                 'description' => 'Status da categoria',
