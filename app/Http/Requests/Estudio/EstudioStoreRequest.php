@@ -4,9 +4,8 @@ namespace App\Http\Requests\Estudio;
 
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Illuminate\Foundation\Http\FormRequest;
 
-class EstudioStoreRequest extends FormRequest
+class EstudioStoreRequest extends EstudioDoc
 {
     public function authorize()
     {
