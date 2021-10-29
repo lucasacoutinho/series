@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateSeriesTable extends Migration
 {
@@ -12,6 +12,7 @@ class CreateSeriesTable extends Migration
             $table->id();
             $table->string('titulo');
             $table->string('slug');
+            $table->text('image');
             $table->text('descricao');
             $table->string('status');
             $table->timestamp('lancamento_at')->nullable();
