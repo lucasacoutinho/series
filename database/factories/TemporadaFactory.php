@@ -3,25 +3,26 @@
 namespace Database\Factories;
 
 use App\Models\Serie;
-use Illuminate\Support\Str;
+use App\Models\Temporada;
 use Domain\Status\Disponibilidade;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class SerieFactory extends Factory
+class TemporadaFactory extends Factory
 {
-    protected $model = Serie::class;
+    protected $model = Temporada::class;
 
     public function definition()
     {
-        $titulo = $this->faker->text(85);
-
         return [
-            'titulo' => $titulo,
-            'slug'   => Str::slug($titulo),
+            'temporada' => $this->faker->numberBetween(1, 10),
             'descricao' => $this->faker->text(200),
-            'image' => $this->faker->imageUrl(),
+            'serie_id' => Serie::inRandomOrder()->first()->id,
+            'status' => $this->faker->randomElement([
+                Disponibilidade::STATUS_AVAILABLE,
+                Disponibilidade::STATUS_HIDDEN,
+                Disponibilidade::STATUS_DISABLED
+            ]),
             'lancamento_at' => $this->faker->dateTimeBetween('-1 years', '+1 years')->format('Y-m-d H:i:s'),
-            'status' => $this->faker->randomElement([Disponibilidade::STATUS_AVAILABLE, Disponibilidade::STATUS_HIDDEN, Disponibilidade::STATUS_DISABLED]),
         ];
     }
 
