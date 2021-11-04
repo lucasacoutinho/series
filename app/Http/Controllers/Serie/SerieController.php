@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Serie;
 
 use App\Models\Serie;
+use Domain\Status\Disponibilidade;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Domain\Permissoes\SeriePermissoes;
@@ -19,7 +20,12 @@ class SerieController extends Controller
 
     public function index()
     {
-        return SerieResource::collection(Serie::with(['categorias', 'autores', 'estudios'])->get());
+        $series = Serie::with(['categorias', 'autores', 'estudios'])
+                    ->where('lancamento_at', '<=', now())
+                    ->where('status', Disponibilidade::STATUS_AVAILABLE)
+                    ->get();
+
+        return SerieResource::collection($series);
     }
 
     public function store(SerieStoreRequest $request)
@@ -27,14 +33,7 @@ class SerieController extends Controller
         abort_unless(authenticatedUserHasPermission(SeriePermissoes::STORE), 403);
 
         $serie = DB::transaction(function () use ($request) {
-            $serie = Serie::create([
-                'titulo'        => $request->input('titulo'),
-                'slug'          => $request->input('slug'),
-                'image'         => $request->input('image'),
-                'descricao'     => $request->input('descricao'),
-                'status'        => $request->input('status'),
-                'lancamento_at' => $request->input('lancamento_at'),
-            ]);
+            $serie = Serie::create($request->validated());
 
             foreach ($request->input('categorias', []) as $categoria) {
                 $serie->categorias()->attach($categoria);
@@ -56,6 +55,9 @@ class SerieController extends Controller
 
     public function show(Serie $serie)
     {
+        abort_unless($serie->lancamento_at <= now(), 404);
+        abort_unless($serie->status === Disponibilidade::STATUS_AVAILABLE, 404);
+
         $serie->load(['categorias', 'autores', 'estudios']);
 
         return (new SerieResource($serie))->response()->setStatusCode(200);
@@ -99,6 +101,10 @@ class SerieController extends Controller
     public function destroy(Serie $serie)
     {
         abort_unless(authenticatedUserHasPermission(SeriePermissoes::DESTROY), 403);
+
+        $serie->update([
+            'status' => Disponibilidade::STATUS_DISABLED
+        ]);
 
         $serie->delete();
 

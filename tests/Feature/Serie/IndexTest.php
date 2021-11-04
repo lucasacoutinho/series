@@ -7,6 +7,7 @@ use App\Models\Autor;
 use App\Models\Serie;
 use App\Models\Estudio;
 use App\Models\Categoria;
+use Domain\Status\Disponibilidade;
 
 class IndexTest extends TestCase
 {
@@ -14,7 +15,7 @@ class IndexTest extends TestCase
 
     public function test_consegue_listar_series_com_categorias()
     {
-        $series = Serie::factory(10)->create();
+        $series = Serie::factory(10)->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
         $categorias = Categoria::factory(10)->create();
 
         foreach ($series as $serie) {
@@ -52,7 +53,7 @@ class IndexTest extends TestCase
 
     public function test_consegue_listar_series_sem_categorias()
     {
-        Serie::factory(10)->create();
+        Serie::factory(10)->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
 
         $response = $this->getJson(route(self::ROTA));
 
@@ -77,7 +78,7 @@ class IndexTest extends TestCase
 
     public function test_consegue_listar_series_com_autores()
     {
-        $series = Serie::factory(10)->create();
+        $series = Serie::factory(10)->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
         $autores = Autor::factory(10)->create();
 
         foreach ($series as $serie) {
@@ -115,7 +116,7 @@ class IndexTest extends TestCase
 
     public function test_consegue_listar_series_sem_autores()
     {
-        Serie::factory(10)->create();
+        Serie::factory(10)->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
 
         $response = $this->getJson(route(self::ROTA));
 
@@ -140,7 +141,7 @@ class IndexTest extends TestCase
 
     public function test_consegue_listar_series_com_estudios()
     {
-        $series = Serie::factory(10)->create();
+        $series = Serie::factory(10)->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
         $estudios = Estudio::factory(10)->create();
 
         foreach ($series as $serie) {
@@ -178,7 +179,7 @@ class IndexTest extends TestCase
 
     public function test_consegue_listar_series_sem_estudios()
     {
-        Serie::factory(10)->create();
+        Serie::factory(10)->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
 
         $response = $this->getJson(route(self::ROTA));
 
@@ -198,6 +199,39 @@ class IndexTest extends TestCase
                     'estudios'   => []
                 ]
             ]
+        ])->assertStatus(200);
+    }
+
+    public function test_nao_consegue_listar_series_nao_lancadas()
+    {
+        Serie::factory(10)->dateAfterNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
+
+        $response = $this->getJson(route(self::ROTA));
+
+        $response->assertJsonStructure([
+            'data' => []
+        ])->assertStatus(200);
+    }
+
+    public function test_nao_consegue_listar_series_indisponiveis()
+    {
+        Serie::factory(10)->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_DISABLED])->create();
+
+        $response = $this->getJson(route(self::ROTA));
+
+        $response->assertJsonStructure([
+            'data' => []
+        ])->assertStatus(200);
+    }
+
+    public function test_nao_consegue_listar_series_ocultas()
+    {
+        Serie::factory(10)->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_HIDDEN])->create();
+
+        $response = $this->getJson(route(self::ROTA));
+
+        $response->assertJsonStructure([
+            'data' => []
         ])->assertStatus(200);
     }
 
