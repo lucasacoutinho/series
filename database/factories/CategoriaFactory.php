@@ -18,7 +18,11 @@ class CategoriaFactory extends Factory
         return [
             'titulo' => $titulo,
             'slug'   => Str::slug($titulo),
-            'status' => $this->faker->randomElement([Disponibilidade::STATUS_AVAILABLE, Disponibilidade::STATUS_HIDDEN, Disponibilidade::STATUS_DISABLED]),
+            'status' => $this->faker->randomElement([
+                Disponibilidade::STATUS_AVAILABLE,
+                Disponibilidade::STATUS_HIDDEN,
+                Disponibilidade::STATUS_DISABLED
+            ]),
         ];
     }
 }
