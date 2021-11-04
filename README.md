@@ -15,15 +15,16 @@ cp .env.example .env
 ```
 php artisan key:generate
 ```
-4. Recomendo que crie um banco de dados para testes com o nome series_testes, para alteração do banco de dados de testes altere DB_DATABASE no arquivo phpunit.xml
+4. Gere uma chave da jwt
+```
+php artisan jwt:secret
+```
+5. Recomendo que crie um banco de dados para testes com o nome series_testes, para alteração do banco de dados de testes altere a variável DB_DATABASE no arquivo phpunit.xml
 
-5. Para rodar os testes da aplicação utilize o comando
+6. Para rodar os testes da aplicação utilize o comando
 ```
 php artisan test
 ```
-
-
-
 ## Dependencias
-- composer
+- Composer
 - PHP 7
