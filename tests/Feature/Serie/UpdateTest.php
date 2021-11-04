@@ -28,7 +28,7 @@ class UpdateTest extends TestCase
 
         $dados = Serie::factory()->make()->toArray();
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['serie' => $serie->id]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['serie' => $serie]), $dados);
 
         $response->assertJsonFragment([
             'data' => [
@@ -60,7 +60,7 @@ class UpdateTest extends TestCase
 
         $dados = ['categorias' => Categoria::factory(2)->create()->pluck('id')->flatten()->all()];
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['serie' => $serie->id]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['serie' => $serie]), $dados);
 
         $response->assertJsonStructure([
             'data' => [
@@ -98,7 +98,7 @@ class UpdateTest extends TestCase
 
         $dados = ['categorias_remover' => $serie->categorias()->get()->random(2)->pluck('id')->flatten()->all()];
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['serie' => $serie->id]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['serie' => $serie]), $dados);
 
         $response->assertJsonStructure([
             'data' => [
@@ -130,7 +130,7 @@ class UpdateTest extends TestCase
 
         $dados = ['autores' => Autor::factory(2)->create()->pluck('id')->flatten()->all()];
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['serie' => $serie->id]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['serie' => $serie]), $dados);
 
         $response->assertJsonStructure([
             'data' => [
@@ -168,7 +168,7 @@ class UpdateTest extends TestCase
 
         $dados = ['autores_remover' => $serie->autores()->get()->random(2)->pluck('id')->flatten()->all()];
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['serie' => $serie->id]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['serie' => $serie]), $dados);
 
         $response->assertJsonStructure([
             'data' => [
@@ -202,7 +202,7 @@ class UpdateTest extends TestCase
 
         $dados = ['estudios' => Estudio::factory(2)->create()->pluck('id')->flatten()->all()];
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['serie' => $serie->id]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['serie' => $serie]), $dados);
 
         $response->assertJsonStructure([
             'data' => [
@@ -240,7 +240,7 @@ class UpdateTest extends TestCase
 
         $dados = ['estudios_remover' => $serie->estudios()->get()->random(2)->pluck('id')->flatten()->all()];
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['serie' => $serie->id]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['serie' => $serie]), $dados);
 
         $response->assertJsonStructure([
             'data' => [
@@ -266,7 +266,7 @@ class UpdateTest extends TestCase
         $serie = Serie::factory()->create();
         $dados = Serie::factory()->make()->toArray();
 
-        $response = $this->putJson(route(self::ROTA, ['serie' => $serie->id]), $dados);
+        $response = $this->putJson(route(self::ROTA, ['serie' => $serie]), $dados);
 
         $response->assertJsonStructure([
             'message'
@@ -282,7 +282,7 @@ class UpdateTest extends TestCase
 
         $dados = Serie::factory()->make()->toArray();
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['serie' => $serie->id]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['serie' => $serie]), $dados);
 
         $response->assertStatus(403);
     }

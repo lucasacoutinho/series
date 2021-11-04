@@ -14,7 +14,7 @@ class ShowTest extends TestCase
     {
         $serie = Serie::factory()->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create()->first();
 
-        $response = $this->getJson(route(self::ROTA, ['serie' => $serie->id]));
+        $response = $this->getJson(route(self::ROTA, ['serie' => $serie]));
 
         $response->assertJsonFragment([
             'data' => [
@@ -37,7 +37,7 @@ class ShowTest extends TestCase
     {
         $serie = Serie::factory()->dateAfterNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create()->first();
 
-        $response = $this->getJson(route(self::ROTA, ['serie' => $serie->id]));
+        $response = $this->getJson(route(self::ROTA, ['serie' => $serie]));
 
         $response->assertStatus(404);
     }
@@ -46,7 +46,7 @@ class ShowTest extends TestCase
     {
         $serie = Serie::factory()->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_DISABLED])->create()->first();
 
-        $response = $this->getJson(route(self::ROTA, ['serie' => $serie->id]));
+        $response = $this->getJson(route(self::ROTA, ['serie' => $serie]));
 
         $response->assertStatus(404);
     }
@@ -55,7 +55,7 @@ class ShowTest extends TestCase
     {
         $serie = Serie::factory()->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_DISABLED])->create()->first();
 
-        $response = $this->getJson(route(self::ROTA, ['serie' => $serie->id]));
+        $response = $this->getJson(route(self::ROTA, ['serie' => $serie]));
 
         $response->assertStatus(404);
     }

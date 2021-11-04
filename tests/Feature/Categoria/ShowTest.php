@@ -13,7 +13,7 @@ class ShowTest extends TestCase
     {
         $categoria = Categoria::factory(1)->create()->first();
 
-        $response = $this->getJson(route(self::ROTA, ['categoria' => $categoria->id]));
+        $response = $this->getJson(route(self::ROTA, ['categoria' => $categoria]));
 
         $response->assertJsonFragment([
             'data' => [

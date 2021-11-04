@@ -16,7 +16,7 @@ class ShowTest extends TestCase
         $serie = Serie::factory()->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
         $temporada = Temporada::factory()->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
 
-        $response = $this->getJson(route(self::ROTA, ['serie' => $serie->id, 'temporada' => $temporada->id]));
+        $response = $this->getJson(route(self::ROTA, ['serie' => $serie, 'temporada' => $temporada]));
 
         $response->assertJsonStructure([
             'data' => [
@@ -36,7 +36,7 @@ class ShowTest extends TestCase
         $serie = Serie::factory()->dateAfterNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
         $temporada = Temporada::factory()->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
 
-        $response = $this->getJson(route(self::ROTA, ['serie' => $serie->id, 'temporada' => $temporada->id]));
+        $response = $this->getJson(route(self::ROTA, ['serie' => $serie, 'temporada' => $temporada]));
 
         $response->assertStatus(404);
     }
@@ -46,7 +46,7 @@ class ShowTest extends TestCase
         $serie = Serie::factory()->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_DISABLED])->create();
         $temporada = Temporada::factory()->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
 
-        $response = $this->getJson(route(self::ROTA, ['serie' => $serie->id, 'temporada' => $temporada->id]));
+        $response = $this->getJson(route(self::ROTA, ['serie' => $serie, 'temporada' => $temporada]));
 
         $response->assertStatus(404);
     }
@@ -56,7 +56,7 @@ class ShowTest extends TestCase
         $serie = Serie::factory()->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_HIDDEN])->create();
         $temporada = Temporada::factory()->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
 
-        $response = $this->getJson(route(self::ROTA, ['serie' => $serie->id, 'temporada' => $temporada->id]));
+        $response = $this->getJson(route(self::ROTA, ['serie' => $serie, 'temporada' => $temporada]));
 
         $response->assertStatus(404);
     }
@@ -66,7 +66,7 @@ class ShowTest extends TestCase
         $serie = Serie::factory()->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_HIDDEN])->create();
         $temporada = Temporada::factory()->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
 
-        $response = $this->getJson(route(self::ROTA, ['serie' => $serie->id, 'temporada' => $temporada->id]));
+        $response = $this->getJson(route(self::ROTA, ['serie' => $serie, 'temporada' => $temporada]));
 
         $response->assertStatus(404);
     }
@@ -76,7 +76,7 @@ class ShowTest extends TestCase
         $serie = Serie::factory()->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
         $temporada = Temporada::factory()->dateAfterNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
 
-        $response = $this->getJson(route(self::ROTA, ['serie' => $serie->id, 'temporada' => $temporada->id]));
+        $response = $this->getJson(route(self::ROTA, ['serie' => $serie, 'temporada' => $temporada]));
 
         $response->assertStatus(404);
     }
@@ -86,7 +86,7 @@ class ShowTest extends TestCase
         $serie = Serie::factory()->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
         $temporada = Temporada::factory()->state(['status' => Disponibilidade::STATUS_HIDDEN])->create();
 
-        $response = $this->getJson(route(self::ROTA, ['serie' => $serie->id, 'temporada' => $temporada->id]));
+        $response = $this->getJson(route(self::ROTA, ['serie' => $serie, 'temporada' => $temporada]));
 
         $response->assertStatus(404);
     }
@@ -96,7 +96,7 @@ class ShowTest extends TestCase
         $serie = Serie::factory()->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
         $temporada = Temporada::factory()->state(['status' => Disponibilidade::STATUS_DISABLED])->create();
 
-        $response = $this->getJson(route(self::ROTA, ['serie' => $serie->id, 'temporada' => $temporada->id]));
+        $response = $this->getJson(route(self::ROTA, ['serie' => $serie, 'temporada' => $temporada]));
 
         $response->assertStatus(404);
     }
@@ -106,7 +106,7 @@ class ShowTest extends TestCase
         $serie = Serie::factory()->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
         $temporada = Temporada::factory()->state(['status' => Disponibilidade::STATUS_DISABLED])->create();
 
-        $response = $this->getJson(route(self::ROTA, ['serie' => 2, 'temporada' => $temporada->id]));
+        $response = $this->getJson(route(self::ROTA, ['serie' => 2, 'temporada' => $temporada]));
 
         $response->assertStatus(404);
     }
@@ -116,7 +116,7 @@ class ShowTest extends TestCase
         $serie = Serie::factory()->dateBeforeNow()->state(['status' => Disponibilidade::STATUS_AVAILABLE])->create();
         $temporada = Temporada::factory()->state(['status' => Disponibilidade::STATUS_DISABLED])->create();
 
-        $response = $this->getJson(route(self::ROTA, ['serie' => $serie->id, 'temporada' => 2]));
+        $response = $this->getJson(route(self::ROTA, ['serie' => $serie, 'temporada' => 2]));
 
         $response->assertStatus(404);
     }

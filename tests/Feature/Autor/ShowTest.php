@@ -13,7 +13,7 @@ class ShowTest extends TestCase
     {
         $autor = Autor::factory(1)->create()->first();
 
-        $response = $this->getJson(route(self::ROTA, ['autor' => $autor->id]));
+        $response = $this->getJson(route(self::ROTA, ['autor' => $autor]));
 
         $response->assertJsonFragment([
             'data' => [

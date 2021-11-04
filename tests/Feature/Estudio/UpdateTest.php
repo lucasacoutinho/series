@@ -25,7 +25,7 @@ class UpdateTest extends TestCase
 
         $dados = Estudio::factory()->make()->toArray();
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['estudio' => $estudio->id]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['estudio' => $estudio]), $dados);
 
         $response->assertJsonStructure([
             'data' => [
@@ -49,7 +49,7 @@ class UpdateTest extends TestCase
 
         $dados = Estudio::factory()->create()->toArray();
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['estudio' => $estudio->id]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['estudio' => $estudio]), $dados);
 
         $response->assertJsonStructure([
             'message'
@@ -61,7 +61,7 @@ class UpdateTest extends TestCase
         $estudio = Estudio::factory()->create();
         $dados = Estudio::factory()->make()->toArray();
 
-        $response = $this->putJson(route(self::ROTA, ['estudio' => $estudio->id]), $dados);
+        $response = $this->putJson(route(self::ROTA, ['estudio' => $estudio]), $dados);
 
         $response->assertJsonStructure([
             'message'
@@ -74,10 +74,10 @@ class UpdateTest extends TestCase
 
         $usuario = User::factory()->create();
         $token = JWTAuth::fromUser($usuario);
-        
+
         $dados = Estudio::factory()->make()->toArray();
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['estudio' => $estudio->id]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['estudio' => $estudio]), $dados);
 
         $response->assertStatus(403);
     }

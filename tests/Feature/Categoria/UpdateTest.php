@@ -25,7 +25,7 @@ class UpdateTest extends TestCase
 
         $dados = Categoria::factory()->make()->toArray();
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['categoria' => $categoria->id]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['categoria' => $categoria]), $dados);
 
         $response->assertJsonStructure([
             'data' => [
@@ -49,7 +49,7 @@ class UpdateTest extends TestCase
 
         $dados = Categoria::factory()->create()->toArray();
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['categoria' => $categoria->id]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['categoria' => $categoria]), $dados);
 
         $response->assertJsonStructure([
             'message'
@@ -61,7 +61,7 @@ class UpdateTest extends TestCase
         $categoria = Categoria::factory()->create();
         $dados = Categoria::factory()->make()->toArray();
 
-        $response = $this->putJson(route(self::ROTA, ['categoria' => $categoria->id]), $dados);
+        $response = $this->putJson(route(self::ROTA, ['categoria' => $categoria]), $dados);
 
         $response->assertJsonStructure([
             'message'
@@ -77,7 +77,7 @@ class UpdateTest extends TestCase
 
         $dados = Categoria::factory()->make()->toArray();
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['categoria' => $categoria->id]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['categoria' => $categoria]), $dados);
 
         $response->assertStatus(403);
     }

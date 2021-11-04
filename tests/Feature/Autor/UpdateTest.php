@@ -25,7 +25,7 @@ class UpdateTest extends TestCase
 
         $dados = Autor::factory()->make()->toArray();
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['autor' => $autor->id]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['autor' => $autor]), $dados);
 
         $response->assertJsonStructure([
             'data' => [
@@ -49,7 +49,7 @@ class UpdateTest extends TestCase
 
         $dados = Autor::factory()->create()->toArray();
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['autor' => $autor->id]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['autor' => $autor]), $dados);
 
         $response->assertJsonStructure([
             'message'
@@ -61,7 +61,7 @@ class UpdateTest extends TestCase
         $autor = Autor::factory()->create();
         $dados = Autor::factory()->make()->toArray();
 
-        $response = $this->putJson(route(self::ROTA, ['autor' => $autor->id]), $dados);
+        $response = $this->putJson(route(self::ROTA, ['autor' => $autor]), $dados);
 
         $response->assertJsonStructure([
             'message'
@@ -77,7 +77,7 @@ class UpdateTest extends TestCase
 
         $dados = Autor::factory()->make()->toArray();
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['autor' => $autor->id]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, ['autor' => $autor]), $dados);
 
         $response->assertStatus(403);
     }

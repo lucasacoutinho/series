@@ -23,7 +23,7 @@ class DestroyTest extends TestCase
         $usuario->givePermissionTo($permissao);
         $token = JWTAuth::fromUser($usuario);
 
-        $response = $this->withToken($token)->deleteJson(route(self::ROTA, ['estudio' => $estudio->id]));
+        $response = $this->withToken($token)->deleteJson(route(self::ROTA, ['estudio' => $estudio]));
 
         $response->assertJson([])->assertStatus(200);
     }
@@ -32,7 +32,7 @@ class DestroyTest extends TestCase
     {
         $estudio = Estudio::factory()->create();
 
-        $response = $this->deleteJson(route(self::ROTA, ['estudio' => $estudio->id]));
+        $response = $this->deleteJson(route(self::ROTA, ['estudio' => $estudio]));
 
         $response->assertJsonStructure([
             'message'
@@ -46,7 +46,7 @@ class DestroyTest extends TestCase
         $usuario   = User::factory()->create();
         $token = JWTAuth::fromUser($usuario);
 
-        $response = $this->withToken($token)->deleteJson(route(self::ROTA, ['estudio' => $estudio->id]));
+        $response = $this->withToken($token)->deleteJson(route(self::ROTA, ['estudio' => $estudio]));
 
         $response->assertStatus(403);
     }
