@@ -67,7 +67,7 @@ class SerieTemporadaController extends Controller
         $temporada->update([
             'status' => Disponibilidade::STATUS_DISABLED,
         ]);
-        
+
         $temporada->delete();
 
         return response()->json()->setStatusCode(200);

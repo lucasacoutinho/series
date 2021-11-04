@@ -19,7 +19,9 @@ class CreateCapitulosTable extends Migration
             $table->string('status');
 
             $table->dateTime('lancamento_at')->nullable();
+            $table->foreignId('temporada_id')->constrained('temporadas');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

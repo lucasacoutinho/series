@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Temporada extends Model
@@ -26,8 +28,13 @@ class Temporada extends Model
         'lancamento_at' => 'datetime'
     ];
 
-    public function serie()
+    public function serie(): BelongsTo
     {
         return $this->belongsTo(Serie::class, 'serie_id', 'id');
+    }
+
+    public function capitulos(): HasMany
+    {
+        return $this->hasMany(Capitulo::class, 'temporada_id', 'id');
     }
 }
