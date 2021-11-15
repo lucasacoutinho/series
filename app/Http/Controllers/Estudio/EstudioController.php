@@ -52,6 +52,7 @@ class EstudioController extends Controller
      *
      * Retorna os dados do estudio
      * @group Estudio
+     * @urlParam id integer required O ID do estudio.
      * @responseFile response/estudio/Detalhar.json
      * @response 404 {"message": "No query results for model [App\\Models\\Estudio] 3"}
      */
@@ -65,12 +66,12 @@ class EstudioController extends Controller
      *
      * Atualiza os dados do estudio
      * @group Estudio
-     * @urlParam estudio integer required O id do estudio
+     * @urlParam id integer required O ID do estudio.
      * @responseFile response/estudio/Detalhar.json
      * @responseFile 401 response/estudio/ValidarAutenticacao.json
      * @responseFile 403 response/estudio/ValidarPermissao.json
-     * @response 404 {"message": "No query results for model [App\\Models\\Estudio] 3"}
      * @responseFile 422 response/estudio/ValidarAtualizar.json
+     * @response 404 {"message": "No query results for model [App\\Models\\Estudio] 3"}
      */
     public function update(EstudioUpdateRequest $request, Estudio $estudio)
     {
@@ -86,7 +87,7 @@ class EstudioController extends Controller
      *
      * Exclui um estudio
      * @group Estudio
-     * @urlParam estudio integer required O id da estudio
+     * @urlParam id integer required O ID do estudio.
      * @responseFile 401 response/estudio/ValidarAutenticacao.json
      * @responseFile 403 response/estudio/ValidarPermissao.json
      * @response 404 {"message": "No query results for model [App\\Models\\Estudio] 3"}

@@ -5,9 +5,8 @@ namespace App\Http\Requests\Capitulo;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Domain\Status\Disponibilidade;
-use Illuminate\Foundation\Http\FormRequest;
 
-class CapituloUpdateRequest extends FormRequest
+class CapituloUpdateRequest extends CapituloDoc
 {
     public function authorize()
     {
@@ -24,9 +23,26 @@ class CapituloUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'capitulo'  => ['filled', 'min:1', 'integer'],
+            'capitulo'  => [
+                'filled',
+                'integer',
+                'min:1',
+                Rule::unique('capitulos', 'capitulo')
+                    ->where(function ($query) {
+                        return $query->where('temporada_id', $this->temporada->id);
+                    })
+                    ->where(function ($query) {
+                        return $query->where('status', Disponibilidade::STATUS_AVAILABLE);
+                    })
+                    ->ignore($this->capitulo)
+            ],
             'titulo'    => ['filled', 'string', 'min:5'],
-            'slug'      => ['nullable', 'string', Rule::unique('capitulos', 'slug')->ignore($this->capitulo)],
+            'slug'      => [
+                'nullable',
+                'string',
+                Rule::unique('capitulos', 'slug')
+                    ->ignore($this->capitulo)
+            ],
             'descricao' => ['filled', 'string', 'min:5'],
             'link'      => ['filled', 'url'],
             'lancamento_at' => ['filled', 'date'],

@@ -38,7 +38,7 @@ class ShowTest extends TestCase
 
         $response = $this->getJson(route(self::ROTA, ['serie' => $serie, 'temporada' => $temporada]));
 
-        $response->assertStatus(404);
+        $response->assertStatus(403);
     }
 
     public function test_nao_consegue_detalhar_temporadas_de_serie_desabilitada()
@@ -48,7 +48,7 @@ class ShowTest extends TestCase
 
         $response = $this->getJson(route(self::ROTA, ['serie' => $serie, 'temporada' => $temporada]));
 
-        $response->assertStatus(404);
+        $response->assertStatus(403);
     }
 
     public function test_nao_consegue_detalhar_temporadas_de_serie_oculta()
@@ -58,7 +58,7 @@ class ShowTest extends TestCase
 
         $response = $this->getJson(route(self::ROTA, ['serie' => $serie, 'temporada' => $temporada]));
 
-        $response->assertStatus(404);
+        $response->assertStatus(403);
     }
 
     public function test_nao_consegue_detalhar_temporadas_de_serie_a_ser_lancada()
@@ -68,7 +68,7 @@ class ShowTest extends TestCase
 
         $response = $this->getJson(route(self::ROTA, ['serie' => $serie, 'temporada' => $temporada]));
 
-        $response->assertStatus(404);
+        $response->assertStatus(403);
     }
 
     public function test_nao_consegue_detalhar_temporadas_da_serie_a_serem_lancadas()
@@ -78,7 +78,7 @@ class ShowTest extends TestCase
 
         $response = $this->getJson(route(self::ROTA, ['serie' => $serie, 'temporada' => $temporada]));
 
-        $response->assertStatus(404);
+        $response->assertStatus(403);
     }
 
     public function test_nao_consegue_detalhar_temporadas_ocultas()
@@ -88,7 +88,7 @@ class ShowTest extends TestCase
 
         $response = $this->getJson(route(self::ROTA, ['serie' => $serie, 'temporada' => $temporada]));
 
-        $response->assertStatus(404);
+        $response->assertStatus(403);
     }
 
     public function test_nao_consegue_listar_temporadas_desabilitadas()
@@ -98,7 +98,7 @@ class ShowTest extends TestCase
 
         $response = $this->getJson(route(self::ROTA, ['serie' => $serie, 'temporada' => $temporada]));
 
-        $response->assertStatus(404);
+        $response->assertStatus(403);
     }
 
     public function test_nao_consegue_detalhar_temporadas_da_serie_inexistente()
