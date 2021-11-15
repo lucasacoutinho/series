@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Tymon\JWTAuth\JWTGuard;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 
@@ -8,6 +9,13 @@ if (!function_exists('getAuthenticatedUser')) {
     function getAuthenticatedUser(): User
     {
         return Auth::guard('api')->user();
+    }
+}
+
+if (!function_exists('getAuthenticationGuard')) {
+    function getAuthenticationGuard(): JWTGuard
+    {
+        return Auth::guard('api');
     }
 }
 
