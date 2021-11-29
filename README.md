@@ -19,12 +19,14 @@ php artisan key:generate
 ```
 php artisan jwt:secret
 ```
-5. Recomendo que crie um banco de dados para testes com o nome series_testes, para alteração do banco de dados de testes altere a variável DB_DATABASE no arquivo phpunit.xml
+5. Recomendo que crie um banco de dados para testes com o nome series_testes, para alteração do nome do banco de dados de testes altere a variável DB_DATABASE no arquivo phpunit.xml
 
 6. Para rodar os testes da aplicação utilize o comando
 ```
 php artisan test
 ```
+
 ## Dependencias
 - Composer
 - PHP 7
+- MySQL

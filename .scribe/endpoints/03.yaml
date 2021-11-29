@@ -1,12 +1,12 @@
-name: Estudio
+name: Categoria
 description: ''
 endpoints:
   -
     httpMethods:
       - GET
-    uri: api/estudios
+    uri: api/categorias
     metadata:
-      title: 'Listar estudios'
+      title: 'Listar categorias'
       description: 'Retonar todos os registros do banco'
       authenticated: false
     headers:
@@ -25,10 +25,10 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/estudios
+    uri: api/categorias
     metadata:
-      title: 'Criar estudio'
-      description: 'Cria uma novo estudio'
+      title: 'Criar categoria'
+      description: 'Cria uma nova categoria'
       authenticated: false
     headers:
       Content-Type: application/json
@@ -36,17 +36,23 @@ endpoints:
     urlParameters: []
     queryParameters: []
     bodyParameters:
-      nome:
-        name: nome
-        description: 'Nome do estudio. Must be at least 2 characters.'
+      titulo:
+        name: titulo
+        description: 'Titulo da categoria. Must be at least 5 characters.'
         required: true
-        example: MAPPe
+        example: romance
         type: string
       slug:
         name: slug
         description: ''
         required: true
-        example: facilis
+        example: ipsum
+        type: string
+      status:
+        name: status
+        description: 'Status da categoria. Must be one of <code>disponivel</code>, <code>oculta</code>, or <code>desabilitada</code>.'
+        required: true
+        example: disponivel
         type: string
     responses:
       -
@@ -73,10 +79,10 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: 'api/estudios/{id}'
+    uri: 'api/categorias/{id}'
     metadata:
-      title: 'Detalhar estudio'
-      description: 'Retorna os dados do estudio'
+      title: 'Detalhar categoria'
+      description: 'Retorna os dados da categoria'
       authenticated: false
     headers:
       Content-Type: application/json
@@ -84,16 +90,16 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: 'The ID of the estudio.'
+        description: 'O ID da categoria.'
         required: true
-        example: 20
+        example: 12
         type: integer
     queryParameters: []
     bodyParameters: []
     responses:
       -
         status: 404
-        content: '{"message": "No query results for model [App\\Models\\Estudio] 3"}'
+        content: '{"message": "No query results for model [App\\Models\\Categoria] 3"}'
         headers: []
         description: '404'
       -
@@ -106,10 +112,10 @@ endpoints:
     httpMethods:
       - PUT
       - PATCH
-    uri: 'api/estudios/{id}'
+    uri: 'api/categorias/{id}'
     metadata:
-      title: 'Atualizar estudio'
-      description: 'Atualiza os dados do estudio'
+      title: 'Atualizar categoria'
+      description: 'Atualiza os dados da categoria'
       authenticated: false
     headers:
       Content-Type: application/json
@@ -117,34 +123,34 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: 'The ID of the estudio.'
+        description: 'O ID da categoria.'
         required: true
-        example: 12
-        type: integer
-      estudio:
-        name: estudio
-        description: 'O id do estudio'
-        required: true
-        example: 20
+        example: 15
         type: integer
     queryParameters: []
     bodyParameters:
-      nome:
-        name: nome
-        description: 'Nome do estudio. Must be at least 2 characters.'
+      titulo:
+        name: titulo
+        description: 'Titulo da categoria. Must be at least 5 characters.'
         required: false
-        example: MAPPe
+        example: romance
         type: string
       slug:
         name: slug
         description: ''
         required: false
-        example: quis
+        example: sed
+        type: string
+      status:
+        name: status
+        description: 'Status da categoria. Must be one of <code>disponivel</code>, <code>oculta</code>, or <code>desabilitada</code>.'
+        required: false
+        example: disponivel
         type: string
     responses:
       -
         status: 404
-        content: '{"message": "No query results for model [App\\Models\\Estudio] 3"}'
+        content: '{"message": "No query results for model [App\\Models\\Categoria] 3"}'
         headers: []
         description: '404'
       -
@@ -171,10 +177,10 @@ endpoints:
   -
     httpMethods:
       - DELETE
-    uri: 'api/estudios/{id}'
+    uri: 'api/categorias/{id}'
     metadata:
-      title: 'Excluir estudio'
-      description: 'Exclui um estudio'
+      title: 'Excluir categoria'
+      description: 'Exclui uma categoria'
       authenticated: false
     headers:
       Content-Type: application/json
@@ -182,22 +188,16 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: 'The ID of the estudio.'
+        description: 'O ID da categoria.'
         required: true
-        example: 4
-        type: integer
-      estudio:
-        name: estudio
-        description: 'O id da estudio'
-        required: true
-        example: 12
+        example: 11
         type: integer
     queryParameters: []
     bodyParameters: []
     responses:
       -
         status: 404
-        content: '{"message": "No query results for model [App\\Models\\Estudio] 3"}'
+        content: '{"message": "No query results for model [App\\Models\\Categoria] 3"}'
         headers: []
         description: '404'
       -

@@ -1,6 +1,6 @@
 echo '----Rodando testes----'
 clear
-php artisan test tests/Feature/Capitulo
+php artisan test tests/Feature/Auth
 if [ $? -ne 0 ]
 then
   exit 2

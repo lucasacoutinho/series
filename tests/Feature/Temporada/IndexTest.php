@@ -40,7 +40,7 @@ class IndexTest extends TestCase
 
         $response = $this->getJson(route(self::ROTA, ['serie' => $serie]));
 
-        $response->assertStatus(404);
+        $response->assertStatus(403);
     }
 
     public function test_nao_consegue_listar_temporadas_de_serie_desabilitada()
@@ -50,7 +50,7 @@ class IndexTest extends TestCase
 
         $response = $this->getJson(route(self::ROTA, ['serie' => $serie]));
 
-        $response->assertStatus(404);
+        $response->assertStatus(403);
     }
 
     public function test_nao_consegue_listar_temporadas_de_serie_oculta()
@@ -60,7 +60,7 @@ class IndexTest extends TestCase
 
         $response = $this->getJson(route(self::ROTA, ['serie' => $serie]));
 
-        $response->assertStatus(404);
+        $response->assertStatus(403);
     }
 
     public function test_nao_consegue_listar_temporadas_a_serem_lancadas()

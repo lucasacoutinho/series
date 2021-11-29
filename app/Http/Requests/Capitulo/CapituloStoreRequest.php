@@ -5,9 +5,8 @@ namespace App\Http\Requests\Capitulo;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Domain\Status\Disponibilidade;
-use Illuminate\Foundation\Http\FormRequest;
 
-class CapituloStoreRequest extends FormRequest
+class CapituloStoreRequest extends CapituloDoc
 {
     public function authorize()
     {
@@ -24,9 +23,18 @@ class CapituloStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'capitulo'  => ['required', 'integer', 'min:1', Rule::unique('capitulos')->where('temporada_id', $this->temporada->id)->where(function ($query) {
-                return $query->where('status', Disponibilidade::STATUS_AVAILABLE);
-            }),],
+            'capitulo'  => [
+                'required',
+                'integer',
+                'min:1',
+                Rule::unique('capitulos', 'capitulo')
+                    ->where(function($query) {
+                        return $query->where('temporada_id', $this->temporada->id);
+                    })
+                    ->where(function ($query) {
+                        return $query->where('status', Disponibilidade::STATUS_AVAILABLE);
+                    })
+            ],
             'titulo'    => ['required', 'string', 'min:5'],
             'slug'      => ['required', 'string', Rule::unique('capitulos', 'slug')],
             'descricao' => ['required', 'string', 'min:5'],

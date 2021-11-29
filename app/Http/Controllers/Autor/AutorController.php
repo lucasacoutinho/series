@@ -52,6 +52,7 @@ class AutorController extends Controller
      *
      * Retorna os dados do autor
      * @group Autor
+     * @urlParam autor integer required O ID do autor.
      * @responseFile response/autor/Detalhar.json
      * @response 404 {"message": "No query results for model [App\\Models\\Autor] 3"}
      */
@@ -65,12 +66,12 @@ class AutorController extends Controller
      *
      * Atualiza os dados do autor
      * @group Autor
-     * @urlParam autor integer required O id do autor
+     * @urlParam autor integer required O ID do autor.
      * @responseFile response/autor/Detalhar.json
      * @responseFile 401 response/autor/ValidarAutenticacao.json
      * @responseFile 403 response/autor/ValidarPermissao.json
-     * @response 404 {"message": "No query results for model [App\\Models\\Autor] 3"}
      * @responseFile 422 response/autor/ValidarAtualizar.json
+     * @response 404 {"message": "No query results for model [App\\Models\\Autor] 3"}
      */
     public function update(AutorUpdateRequest $request, Autor $autor)
     {
@@ -86,7 +87,7 @@ class AutorController extends Controller
      *
      * Exclui um autor
      * @group Autor
-     * @urlParam autor integer required O id da autor
+     * @urlParam autor integer required O ID do autor.
      * @responseFile 401 response/autor/ValidarAutenticacao.json
      * @responseFile 403 response/autor/ValidarPermissao.json
      * @response 404 {"message": "No query results for model [App\\Models\\Autor] 3"}

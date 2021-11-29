@@ -4,9 +4,9 @@ namespace App\Http\Requests\Temporada;
 
 use Illuminate\Validation\Rule;
 use Domain\Status\Disponibilidade;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Temporada\TemporadaDoc;
 
-class TemporadaStoreRequest extends FormRequest
+class TemporadaStoreRequest extends TemporadaDoc
 {
     public function authorize()
     {
@@ -16,17 +16,20 @@ class TemporadaStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'temporada' => [
+            'temporada'     => [
                 'min:1',
                 'required',
                 'integer',
-                Rule::unique('temporadas')->where('serie_id', $this->serie->id)->where(function ($query) {
-                    return $query->where('status', Disponibilidade::STATUS_AVAILABLE);
-                }),
+                Rule::unique('temporadas', 'temporada')
+                    ->where(function ($query) {
+                        return $query->where('serie_id', $this->serie->id);
+                    })->where(function ($query) {
+                        return $query->where('status', Disponibilidade::STATUS_AVAILABLE);
+                    }),
             ],
-            'descricao' => ['required', 'string', 'min:5'],
+            'descricao'     => ['required', 'string', 'min:5'],
             'lancamento_at' => ['required', 'date'],
-            'status' => [
+            'status'        => [
                 'required',
                 'string',
                 Rule::in([

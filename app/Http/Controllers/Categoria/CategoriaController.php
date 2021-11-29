@@ -52,6 +52,7 @@ class CategoriaController extends Controller
      *
      * Retorna os dados da categoria
      * @group Categoria
+     * @urlParam id integer required O ID da categoria.
      * @responseFile response/categoria/Detalhar.json
      * @response 404 {"message": "No query results for model [App\\Models\\Categoria] 3"}
      */
@@ -65,12 +66,12 @@ class CategoriaController extends Controller
      *
      * Atualiza os dados da categoria
      * @group Categoria
-     * @urlParam categoria integer required O id da categoria
+     * @urlParam id integer required O ID da categoria.
      * @responseFile response/categoria/Detalhar.json
      * @responseFile 401 response/categoria/ValidarAutenticacao.json
      * @responseFile 403 response/categoria/ValidarPermissao.json
-     * @response 404 {"message": "No query results for model [App\\Models\\Categoria] 3"}
      * @responseFile 422 response/categoria/ValidarAtualizar.json
+     * @response 404 {"message": "No query results for model [App\\Models\\Categoria] 3"}
      */
     public function update(CategoriaUpdateRequest $request, Categoria $categoria)
     {
@@ -86,7 +87,7 @@ class CategoriaController extends Controller
      *
      * Exclui uma categoria
      * @group Categoria
-     * @urlParam categoria integer required O id da categoria
+     * @urlParam id integer required O ID da categoria.
      * @responseFile 401 response/categoria/ValidarAutenticacao.json
      * @responseFile 403 response/categoria/ValidarPermissao.json
      * @response 404 {"message": "No query results for model [App\\Models\\Categoria] 3"}

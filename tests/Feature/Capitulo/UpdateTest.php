@@ -29,7 +29,10 @@ class UpdateTest extends TestCase
 
         $dados = Capitulo::factory()->make()->toArray();
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['temporada' => $temporada, 'capitulo' => $capitulo]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, [
+            'temporada' => $temporada,
+            'capitulo' => $capitulo
+        ]), $dados);
 
         $response->assertJsonFragment([
             'data' => [
@@ -60,7 +63,10 @@ class UpdateTest extends TestCase
 
         $dados = Capitulo::factory()->state(['status' => 'teste'])->make()->toArray();
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['temporada' => $temporada, 'capitulo' => $capitulo]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, [
+            'temporada' => $temporada,
+            'capitulo' => $capitulo
+        ]), $dados);
 
         $response->assertJsonStructure(['message'])->assertStatus(422);
     }
@@ -73,7 +79,10 @@ class UpdateTest extends TestCase
 
         $dados = Capitulo::factory()->make()->toArray();
 
-        $response = $this->putJson(route(self::ROTA, ['temporada' => $temporada, 'capitulo' => $capitulo]), $dados);
+        $response = $this->putJson(route(self::ROTA, [
+            'temporada' => $temporada,
+            'capitulo' => $capitulo
+        ]), $dados);
 
         $response->assertJsonStructure(['message'])->assertStatus(401);
     }
@@ -89,7 +98,10 @@ class UpdateTest extends TestCase
 
         $dados = Capitulo::factory()->make()->toArray();
 
-        $response = $this->withToken($token)->putJson(route(self::ROTA, ['temporada' => $temporada, 'capitulo' => $capitulo]), $dados);
+        $response = $this->withToken($token)->putJson(route(self::ROTA, [
+            'temporada' => $temporada,
+            'capitulo' => $capitulo
+        ]), $dados);
 
         $response->assertStatus(403);
     }

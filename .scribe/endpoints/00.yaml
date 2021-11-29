@@ -1,146 +1,80 @@
-name: Autor
+name: Auth
 description: ''
 endpoints:
   -
     httpMethods:
-      - GET
-    uri: api/autores
+      - POST
+    uri: api/auth/login
     metadata:
-      title: 'Listar autores'
-      description: 'Retonar todos os registros do banco'
+      title: Login
+      description: 'Gera um token de acesso ao sistema'
       authenticated: false
     headers:
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
     queryParameters: []
-    bodyParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'O email do usuário. Must be a valid email address.'
+        required: true
+        example: teste@example.com
+        type: string
+      password:
+        name: password
+        description: 'A senha do usuário.'
+        required: true
+        example: senha123
+        type: string
     responses:
       -
         status: 200
         content: ''
         headers: []
         description: '200'
+      -
+        status: 422
+        content: ''
+        headers: []
+        description: '422'
     responseFields: []
   -
     httpMethods:
       - POST
-    uri: api/autores
+    uri: api/auth/logout
     metadata:
-      title: 'Criar autor'
-      description: 'Cria uma novo autor'
+      title: Logout
+      description: 'Invalida o token do usuário autenticado'
       authenticated: false
     headers:
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
     queryParameters: []
-    bodyParameters:
-      nome:
-        name: nome
-        description: 'Nome do autor. Must be at least 2 characters.'
-        required: true
-        example: 'Gabriel H3rtz Seiscentos e Sessenta e Oito'
-        type: string
-      slug:
-        name: slug
-        description: ''
-        required: true
-        example: nam
-        type: string
+    bodyParameters: []
     responses:
-      -
-        status: 201
-        content: ''
-        headers: []
-        description: '201'
       -
         status: 401
         content: "{\r\n    \"message\": \"Unauthenticated.\"\r\n}\r\n"
         headers: []
         description: '401'
-      -
-        status: 403
-        content: ''
-        headers: []
-        description: '403'
-      -
-        status: 422
-        content: ''
-        headers: []
-        description: '422'
     responseFields: []
   -
     httpMethods:
-      - GET
-    uri: 'api/autores/{autor}'
+      - POST
+    uri: api/auth/refresh
     metadata:
-      title: 'Detalhar autor'
-      description: 'Retorna os dados do autor'
+      title: Refresh
+      description: 'Gera um novo token de acesso ao usuário autenticado'
       authenticated: false
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters:
-      autor:
-        name: autor
-        description: ''
-        required: true
-        example: 9
-        type: integer
+    urlParameters: []
     queryParameters: []
     bodyParameters: []
     responses:
-      -
-        status: 404
-        content: '{"message": "No query results for model [App\\Models\\Autor] 3"}'
-        headers: []
-        description: '404'
-      -
-        status: 200
-        content: ''
-        headers: []
-        description: '200'
-    responseFields: []
-  -
-    httpMethods:
-      - PUT
-      - PATCH
-    uri: 'api/autores/{autor}'
-    metadata:
-      title: 'Atualizar autor'
-      description: 'Atualiza os dados do autor'
-      authenticated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      autor:
-        name: autor
-        description: 'O id do autor'
-        required: true
-        example: 13
-        type: integer
-    queryParameters: []
-    bodyParameters:
-      nome:
-        name: nome
-        description: 'Nome do autor. Must be at least 2 characters.'
-        required: false
-        example: 'Gabriel H3rtz Seiscentos e Sessenta e Oito'
-        type: string
-      slug:
-        name: slug
-        description: ''
-        required: false
-        example: illo
-        type: string
-    responses:
-      -
-        status: 404
-        content: '{"message": "No query results for model [App\\Models\\Autor] 3"}'
-        headers: []
-        description: '404'
       -
         status: 200
         content: ''
@@ -151,51 +85,30 @@ endpoints:
         content: "{\r\n    \"message\": \"Unauthenticated.\"\r\n}\r\n"
         headers: []
         description: '401'
-      -
-        status: 403
-        content: ''
-        headers: []
-        description: '403'
-      -
-        status: 422
-        content: ''
-        headers: []
-        description: '422'
     responseFields: []
   -
     httpMethods:
-      - DELETE
-    uri: 'api/autores/{autor}'
+      - POST
+    uri: api/auth/me
     metadata:
-      title: 'Excluir autor'
-      description: 'Exclui um autor'
+      title: 'Meu perfil'
+      description: 'Gera um token de acesso ao sistema'
       authenticated: false
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters:
-      autor:
-        name: autor
-        description: 'O id da autor'
-        required: true
-        example: 1
-        type: integer
+    urlParameters: []
     queryParameters: []
     bodyParameters: []
     responses:
       -
-        status: 404
-        content: '{"message": "No query results for model [App\\Models\\Autor] 3"}'
+        status: 200
+        content: ''
         headers: []
-        description: '404'
+        description: '200'
       -
         status: 401
         content: "{\r\n    \"message\": \"Unauthenticated.\"\r\n}\r\n"
         headers: []
         description: '401'
-      -
-        status: 403
-        content: ''
-        headers: []
-        description: '403'
     responseFields: []

@@ -56,6 +56,30 @@ abstract class SerieDoc extends FormRequest
             'estudios.*' => [
                 'description' => 'Codigo dos estudios da serie',
             ],
+
+            'categorias_remover' => [
+                'description' => 'Categorias da serie a serem removidas',
+            ],
+
+            'categorias_remover.*' => [
+                'description' => 'Codigo das categorias da serie a serem removidas',
+            ],
+
+            'autores_remover' => [
+                'description' => 'Autores da serie a serem removidos',
+            ],
+
+            'autores_remover.*' => [
+                'description' => 'Codigo dos autores da serie a serem removidos',
+            ],
+
+            'estudios_remover' => [
+                'description' => 'Estudios da serie a serem removidos',
+            ],
+
+            'estudios_remover.*' => [
+                'description' => 'Codigo dos estudios da serie a serem removidos',
+            ],
         ];
     }
 }
